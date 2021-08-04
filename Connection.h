@@ -1,15 +1,15 @@
 #pragma once
+#include "IGameObject.h"
 
-class ILogElement;
-
-class Connection
+class Connection :
+	public IGameObject
 {
 public:
-	Connection(ILogElement* inElem, ILogElement* outElem);
+	Connection(IGameObject* inElem, IGameObject* outElem);
 	~Connection();
 	bool signal = false;
 private:
-	ILogElement* pInElem;
-	ILogElement* pOutElem;
+	IGameObject* pInElem;
+	IGameObject* pOutElem;
 };
 

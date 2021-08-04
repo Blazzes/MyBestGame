@@ -1,8 +1,9 @@
 #include "Connection.h"
-#include "ILogElement.h"
 
-Connection::Connection(ILogElement* inElem, ILogElement* outElem) : pInElem(inElem), pOutElem(outElem)
-{}
+Connection::Connection(IGameObject* inElem, IGameObject* outElem) : pInElem(inElem), pOutElem(outElem), IGameObject(Position(0,0))
+{
+	SGame->AddUpdateFuction(this);
+}
 
 Connection::~Connection()
 {

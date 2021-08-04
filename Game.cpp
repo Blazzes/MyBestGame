@@ -28,27 +28,11 @@ bool Game::isConnectionBlock()
 
 bool Game::checkBlock(int x, int y)
 {
-	for (auto i : vectorOfObjects)
-	{
-		auto objPosX = i->getPosX();
-		auto objPosY = i->getPosY();
-		if (objPosX <= x && objPosY <= y && objPosX + 114 >= x && objPosY + 200 >= y)
-		{
-			return true;
-		}
-	}
-	return false;
+	
 }
 
 bool Game::checkBlock(IGameObject* obj, int x, int y)
 {
-	auto objPosX = obj->getPosX();
-	auto objPosY = obj->getPosY();
-	if (objPosX <= x && objPosY <= y && objPosX + 114 >= x && objPosY + 200 >= y)
-	{
-		return true;
-	}
-	return false;
 }
 
 Game* Game::instance()
@@ -70,39 +54,7 @@ void Game::Update()
 		i->Update();
 	}
 
-	// Блок обработки все игровой логики
-
-	if (EventGame->isButPressed(SDLK_ESCAPE)) run_game = false;
-	if (EventGame->isButPressed(SDLK_DELETE))
-	{
-		int x = EventGame->getMousePosX();
-		int y = EventGame->getMousePosY();
-		for (auto i = 0; i < vectorOfObjects.size(); ++i)
-		{
-			if (checkBlock(vectorOfObjects.at(i), x, y))
-			{
-				vectorOfObjects.erase(vectorOfObjects.begin() + i);
-				break;
-			}
-		}
-	}
-	if (EventGame->isButPressed(SDLK_1)) elem = 1;
-	if (EventGame->isMouseButPressed(SDL_BUTTON_LEFT))
-	{
-		int x = EventGame->getMousePosX();
-		int y = EventGame->getMousePosY();
-		
-		for (auto i : vectorOfObjects)
-		{
-			if (checkBlock(i, x, y))
-			{
-				dynamic_cast<ILogElement*>(i)->updatePosition(x - 144/2, y - 200/2);
-				return;
-			}
-		}
-
-		if(!checkBlock(x,y)) AddUpdateFuction(new LogEAnd(x - 114 / 2, y - 200 / 2));
-	}
+	
 }
 
 void Game::Render()
