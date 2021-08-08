@@ -8,6 +8,12 @@ struct Position
 	Position(int x, int y) : x(x), y(y) { }
 	Position(std::pair<int, int> pos) { x = pos.first; y = pos.second; }
 	int x, y;
+	Position operator+(Position addPos) {
+		return Position(x + addPos.x, y + addPos.y);
+	}
+	Position operator-(Position addPos) {
+		return Position(x - addPos.x, y - addPos.y);
+	}
 };
 
 class IGameObject

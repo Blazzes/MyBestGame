@@ -7,6 +7,7 @@
 
 #define SGame Game::instance()
 
+struct Position;
 class IGameObject;
 
 class Game
@@ -31,9 +32,16 @@ private:
 	std::vector<IGameObject*> vectorOfObjects;
 	InitWindow* win;
 	bool run_game = true;
-	int elem;
-	bool isConnectionBlock();
-	bool checkBlock(int x, int y);
-	bool checkBlock(IGameObject* obj, int x, int y);
+	IGameObject* getObjectFromPosition(Position inPos);
+	int select_elem = 0;
+	//-----TEMPORAL VARS-----
+	bool connected = false;
+	bool isMoved = false;
+	IGameObject* tmpObj = nullptr;
 };
 
+// воду в кастрюлю, до кипения
+// картошку до кипения(немного варить)
+// окунаю тефтельки
+// ждать закипания и всплытия
+// домашние макарошки(не более 5 мин)

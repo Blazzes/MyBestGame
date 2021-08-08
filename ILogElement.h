@@ -12,5 +12,6 @@ public:
     void addInY(Connection* con);
 protected:
     std::vector<Connection*> outCon;
-    Connection* inX,* inY;
+    Connection* inX = nullptr, * inY = nullptr;
+    Uint32 conTex = BITMAP::NOTCON;
 };

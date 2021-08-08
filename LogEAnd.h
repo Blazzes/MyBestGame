@@ -5,8 +5,7 @@ class LogEAnd :
 {
 public:
     LogEAnd(Position pos);
-    void Update();
-    void Render();
-
+    void Update() override;
+    void Render() override;
 };
 

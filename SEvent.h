@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <map>
+#include "IGameObject.h"
 
 #define EventGame SEvent::instance()
 
@@ -13,6 +14,7 @@ public:
 	bool isMouseButPressed(int button);
 	int getMousePosX();
 	int getMousePosY();
+	Position getPos();
 
 private:
 	SDL_Event e;

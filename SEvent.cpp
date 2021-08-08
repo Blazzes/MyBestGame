@@ -45,3 +45,8 @@ int SEvent::getMousePosY()
 {
     return MouseY;
 }
+
+Position SEvent::getPos()
+{
+    return Position(MouseX, MouseY);
+}

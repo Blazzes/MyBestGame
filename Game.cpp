@@ -20,19 +20,18 @@ Game::~Game()
 	SDL_Quit();
 }
 
-bool Game::isConnectionBlock()
+IGameObject* Game::getObjectFromPosition(Position inPos)
 {
-	
-	return false;
-}
-
-bool Game::checkBlock(int x, int y)
-{
-	
-}
-
-bool Game::checkBlock(IGameObject* obj, int x, int y)
-{
+	//inPos.x -= 144 / 2;
+	//inPos.y -= 200 / 2;
+	for (auto i : vectorOfObjects)
+	{
+		auto objPos = i->getPos();
+		if (objPos.x < inPos.x && objPos.x + 144 > inPos.x &&
+			objPos.y < inPos.y && objPos.y + 200 > inPos.y)
+			return i;
+	}
+	return nullptr;
 }
 
 Game* Game::instance()
@@ -54,7 +53,62 @@ void Game::Update()
 		i->Update();
 	}
 
-	
+	//-------MOUSE AND KEYBOAR------
+	//----------GAME LOGIC----------
+
+	auto mousePos = EventGame->getPos();
+
+	if (EventGame->isButPressed(SDLK_ESCAPE)) run_game = false;
+
+	if (EventGame->isButPressed(SDLK_1)) select_elem = 1;
+
+	if (EventGame->isMouseButPressed(SDL_BUTTON_LEFT))
+	{
+		if (isMoved)
+		{
+			tmpObj->setPos(mousePos - Position(57, 100));
+		}
+		else if (connected)
+		{
+
+		}
+		else
+		{
+			auto obj = getObjectFromPosition(mousePos);
+			if (obj == nullptr)
+			{
+				switch (select_elem)
+				{
+				case 0:
+				case 1:
+					vectorOfObjects.push_back(new LogEAnd(mousePos - Position(57, 100)));
+					break;
+				default:
+					break;
+				}
+			}
+			else
+			{
+				isMoved = true;
+				tmpObj = obj;
+			}
+		}
+	}
+	else
+	{
+		if (isMoved)
+		{
+			isMoved = false;
+		}
+		else if (connected)
+		{
+			connected = false;
+		}
+		else
+		{
+
+		}
+	}
 }
 
 void Game::Render()

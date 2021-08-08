@@ -21,4 +21,3 @@ public:
 private:
 	SDL_Texture* tex;
 };
-
