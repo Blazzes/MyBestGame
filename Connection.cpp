@@ -1,13 +1,14 @@
 #include "Connection.h"
 
-Connection::Connection(IGameObject* inElem, IGameObject* outElem) : pInElem(inElem), pOutElem(outElem), IGameObject(Position(0,0))
+Connection::Connection(IGameObject* inElem, IGameObject* outElem, bool outSelect)
+	: pInElem(inElem), pOutElem(outElem), IGameObject(Position(0, 0)), select(outSelect)
 {
-	//SGame->AddUpdateFuction(this);
+	
 }
 
 Connection::~Connection()
 {
-	//pInElem->delOut(this);
+	
 }
 
 void Connection::Update()
@@ -18,7 +19,13 @@ void Connection::Render()
 {
 	auto objAPos = pInElem->getPos();
 	auto objBPos = pOutElem->getPos();
-	SDL_SetRenderDrawColor(SGame->getRenderer(), 0, 0, 0, 255);
-	SDL_RenderDrawLine(SGame->getRenderer(), objAPos.x, objAPos.y, objBPos.x, objBPos.y);
+	if(signal)SDL_SetRenderDrawColor(SGame->getRenderer(), 255, 0, 0, 255);
+	else SDL_SetRenderDrawColor(SGame->getRenderer(), 0, 0, 0, 255);
+	int y_;
+	if (select)// 0 - A; 1 - B
+		y_ = 200 - 40;
+	else
+		y_ = 40;
+	SDL_RenderDrawLine(SGame->getRenderer(), objAPos.x, objAPos.y + y_, objBPos.x + 114, objBPos.y + 100);
 	//std::cout << "CONNECTOR" << std::endl;
 }

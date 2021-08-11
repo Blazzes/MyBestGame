@@ -34,9 +34,11 @@ private:
 	bool run_game = true;
 	IGameObject* getObjectFromPosition(Position inPos);
 	int select_elem = 0;
+	int selectOut(IGameObject* chObj, Position selPos);
 	//-----TEMPORAL VARS-----
 	bool connected = false;
 	bool isMoved = false;
+	bool outSelect = false;
 	IGameObject* tmpObj = nullptr;
 };
 

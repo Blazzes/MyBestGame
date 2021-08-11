@@ -5,7 +5,7 @@ class Connection :
 	public IGameObject
 {
 public:
-	Connection(IGameObject* inElem, IGameObject* outElem);
+	Connection(IGameObject* inElem, IGameObject* outElem, bool outSelect); // 0 - A; 1 - B;
 	~Connection();
 	void Update() override;
 	void Render() override;
@@ -13,5 +13,6 @@ public:
 private:
 	IGameObject* pInElem;
 	IGameObject* pOutElem;
+	bool select;
 };
 

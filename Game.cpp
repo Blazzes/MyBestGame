@@ -4,6 +4,7 @@
 #include "SEvent.h"
 #include "LogEAnd.h"
 #include <string>
+
 Game::Game(const char* title)
 {
 	win = new InitWindow(title, 0,0,0,0, SDL_WINDOW_FULLSCREEN || SDL_WINDOW_OPENGL, SDL_RENDERER_ACCELERATED);
@@ -23,8 +24,6 @@ Game::~Game()
 
 IGameObject* Game::getObjectFromPosition(Position inPos)
 {
-	//inPos.x -= 144 / 2;
-	//inPos.y -= 200 / 2;
 	for (auto i : vectorOfObjects)
 	{
 		auto objPos = i->getPos();
@@ -33,6 +32,22 @@ IGameObject* Game::getObjectFromPosition(Position inPos)
 			return i;
 	}
 	return nullptr;
+}
+
+// 0 - map, 1 - A, 2 - B, 3 - Out, 4 - inE;
+int Game::selectOut(IGameObject* chObj, Position selPos)
+{
+	int oX = chObj->getPos().x, oY = chObj->getPos().y;
+	int mX = selPos.x, mY = selPos.y;
+	if (mX > oX && mX < oX + 114 && mY > oY && mY < oY + 200)
+	{
+		if (mX > oX && mX < oX + 10 && mY > oY + 30 && mY < oY + 50) return 1;
+		if (mX > oX && mX < oX + 10 && mY > oY + 150 && mY < oY + 170) return 2;
+		if (mX > oX + 104 && mX < oX + 114 && mY > oY + 90 && mY < oY + 110) return 3;
+		return 4;
+	}
+	else
+		return 0;
 }
 
 Game* Game::instance()
@@ -57,7 +72,7 @@ void Game::Update()
 	//-------MOUSE AND KEYBOAR------
 	//----------GAME LOGIC----------
 
-	auto mousePos = EventGame->getPos();
+	Position mousePos = EventGame->getPos();
 
 	if (EventGame->isButPressed(SDLK_ESCAPE)) run_game = false;
 
@@ -91,16 +106,26 @@ void Game::Update()
 			else
 			{
 				auto objPos = obj->getPos();
-				if (mousePos.x > objPos.x && mousePos.x < objPos.x + 20 &&
-					mousePos.y > objPos.y + 30 && mousePos.y < objPos.y + 50)
+				tmpObj = obj;
+				// 0 - map, 1 - A, 2 - B, 3 - Out, 4 - inE;
+				switch (selectOut(obj, mousePos))
 				{
+				case 1:
+					outSelect = 0;
 					connected = true;
-					tmpObj = obj;
-				}
-				else 
-				{
+					break;
+				case 2:
+					outSelect = 1;
+					connected = true;
+					break;
+				case 3:
+					connected = true;
+					break;
+				case 4:
 					isMoved = true;
-					tmpObj = obj;
+					break;
+				default:
+					break;
 				}
 			}
 		}
@@ -116,17 +141,50 @@ void Game::Update()
 			auto obj = getObjectFromPosition(mousePos);
 			if (obj != nullptr)
 			{
+				Connection* con;
+				switch (selectOut(obj, mousePos))
+				{
+				case 1:
+					con = new Connection(obj, tmpObj, 0);
+					static_cast<ILogElement*>(obj)->addInX(con);
+					static_cast<ILogElement*>(tmpObj)->addOut(con);
+					vectorOfObjects.push_back(con);
+					break;
+				case 2:
+					con = new Connection(obj, tmpObj, 1);
+					static_cast<ILogElement*>(obj)->addInY(con);
+					static_cast<ILogElement*>(tmpObj)->addOut(con);
+					vectorOfObjects.push_back(con);
+					break;
+				case 3:
+					con = new Connection(tmpObj, obj, outSelect);
+					if(outSelect)
+						static_cast<ILogElement*>(tmpObj)->addInY(con);
+					else
+						static_cast<ILogElement*>(tmpObj)->addInX(con);
+					static_cast<ILogElement*>(obj)->addOut(con);
+					vectorOfObjects.push_back(con);
+					break;
+				default:
+					break;
+				}
+			}
+			connected = false;
+
+			/*auto obj = getObjectFromPosition(mousePos);
+			if (obj != nullptr)
+			{
 				auto objPos = obj->getPos();
 				std::cout << objPos.x << " " << objPos.y << std::endl;
 				if (mousePos.x > objPos.x + 104 && mousePos.x < objPos.x + 124 &&
 					mousePos.y > objPos.y + 90 && mousePos.y < objPos.y + 110)
 				{
-					Connection* con = new Connection(tmpObj, obj);
+					Connection* con = new Connection(tmpObj, obj, 0);
 					static_cast<ILogElement*>(tmpObj)->addInX(con);
 					static_cast<ILogElement*>(obj)->addOut(con);
 					vectorOfObjects.push_back(con);
 				}
-			}
+			}*/
 			connected = false;
 		}
 		else
