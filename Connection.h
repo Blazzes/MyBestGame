@@ -7,6 +7,8 @@ class Connection :
 public:
 	Connection(IGameObject* inElem, IGameObject* outElem);
 	~Connection();
+	void Update() override;
+	void Render() override;
 	bool signal = false;
 private:
 	IGameObject* pInElem;

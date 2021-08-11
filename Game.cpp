@@ -3,6 +3,7 @@
 #include "IGameObject.h"
 #include "SEvent.h"
 #include "LogEAnd.h"
+#include <string>
 Game::Game(const char* title)
 {
 	win = new InitWindow(title, 0,0,0,0, SDL_WINDOW_FULLSCREEN || SDL_WINDOW_OPENGL, SDL_RENDERER_ACCELERATED);
@@ -89,8 +90,18 @@ void Game::Update()
 			}
 			else
 			{
-				isMoved = true;
-				tmpObj = obj;
+				auto objPos = obj->getPos();
+				if (mousePos.x > objPos.x && mousePos.x < objPos.x + 20 &&
+					mousePos.y > objPos.y + 30 && mousePos.y < objPos.y + 50)
+				{
+					connected = true;
+					tmpObj = obj;
+				}
+				else 
+				{
+					isMoved = true;
+					tmpObj = obj;
+				}
 			}
 		}
 	}
@@ -102,6 +113,20 @@ void Game::Update()
 		}
 		else if (connected)
 		{
+			auto obj = getObjectFromPosition(mousePos);
+			if (obj != nullptr)
+			{
+				auto objPos = obj->getPos();
+				std::cout << objPos.x << " " << objPos.y << std::endl;
+				if (mousePos.x > objPos.x + 104 && mousePos.x < objPos.x + 124 &&
+					mousePos.y > objPos.y + 90 && mousePos.y < objPos.y + 110)
+				{
+					Connection* con = new Connection(tmpObj, obj);
+					static_cast<ILogElement*>(tmpObj)->addInX(con);
+					static_cast<ILogElement*>(obj)->addOut(con);
+					vectorOfObjects.push_back(con);
+				}
+			}
 			connected = false;
 		}
 		else
@@ -109,12 +134,32 @@ void Game::Update()
 
 		}
 	}
+	if (EventGame->isMouseButPressed(SDL_BUTTON_RIGHT))
+	{
+		auto obj = getObjectFromPosition(mousePos);
+		if (obj != nullptr)
+		{
+			for (int i = 0; i < vectorOfObjects.size(); i++)
+			{
+				if (vectorOfObjects[i] == obj)
+				{
+					vectorOfObjects.erase(vectorOfObjects.begin() + i);
+					break;
+				}
+			}
+		}
+	}
+
+	
 }
 
 void Game::Render()
 {
 	SDL_SetRenderDrawColor(win->getRenderer(), 199,208,204,255);
 	SDL_RenderClear(win->getRenderer());
+	TEXT->PrintText(FONTS::Cosmic,
+		(std::to_string(EventGame->getMousePosX()) + ":" + std::to_string(EventGame->getMousePosY())).c_str(), 
+		{ 0,0,0,255 }, 100, 100, 100, 20);
 	for (auto i : vectorOfObjects) i->Render();
 	SDL_RenderPresent(win->getRenderer());
 }

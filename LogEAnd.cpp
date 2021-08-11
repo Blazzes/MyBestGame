@@ -17,7 +17,7 @@ void LogEAnd::Render()
 {
 	static BitMapTexture* tex = new BitMapTexture("./Textures/MEGATextureAnd.png");
 	SDL_Rect c = tex->getTexturePosition(conTex);
-	SDL_Rect r = { pos.x, pos.y, 144, 200 };
+	SDL_Rect r = { pos.x, pos.y, 114, 200 };
 	SDL_RenderCopy(SGame->getRenderer(), tex->getTexture(), &c, &r);
 }
 
