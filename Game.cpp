@@ -146,23 +146,14 @@ void Game::Update()
 				{
 				case 1:
 					con = new Connection(obj, tmpObj, 0);
-					static_cast<ILogElement*>(obj)->addInX(con);
-					static_cast<ILogElement*>(tmpObj)->addOut(con);
 					vectorOfObjects.push_back(con);
 					break;
 				case 2:
 					con = new Connection(obj, tmpObj, 1);
-					static_cast<ILogElement*>(obj)->addInY(con);
-					static_cast<ILogElement*>(tmpObj)->addOut(con);
 					vectorOfObjects.push_back(con);
 					break;
 				case 3:
 					con = new Connection(tmpObj, obj, outSelect);
-					if(outSelect)
-						static_cast<ILogElement*>(tmpObj)->addInY(con);
-					else
-						static_cast<ILogElement*>(tmpObj)->addInX(con);
-					static_cast<ILogElement*>(obj)->addOut(con);
 					vectorOfObjects.push_back(con);
 					break;
 				default:
@@ -201,6 +192,7 @@ void Game::Update()
 			{
 				if (vectorOfObjects[i] == obj)
 				{
+					delete static_cast<ILogElement*>(obj);
 					vectorOfObjects.erase(vectorOfObjects.begin() + i);
 					break;
 				}
@@ -227,9 +219,23 @@ void Game::StopGame()
 	run_game = false;
 }
 
-void Game::AddUpdateFuction(IGameObject* gameObj)
+//void Game::AddUpdateFuction(IGameObject* gameObj)
+//{
+//	vectorOfObjects.push_back(gameObj);
+//}
+
+void Game::deleteObject(IGameObject* obj)
 {
-	vectorOfObjects.push_back(gameObj);
+	std::cout << "Vector size: " << vectorOfObjects.size() << std::endl;
+	for (int i = 0; i < vectorOfObjects.size(); i++)
+	{
+		if (vectorOfObjects[i] == obj)
+		{
+			std::cout << "Delete from Vetor: " << obj << "-index->" << i << std::endl;
+			vectorOfObjects.erase(vectorOfObjects.begin() + i);
+			break;
+		}
+	}
 }
 
 bool Game::isRunneble()

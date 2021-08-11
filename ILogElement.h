@@ -7,9 +7,13 @@ class ILogElement :
 {
 public:
     ILogElement(Position pos);
+    ~ILogElement();
     void addOut(Connection* con);
     void addInX(Connection* con);
     void addInY(Connection* con);
+    void delOut(Connection* con);
+    void delInX();
+    void delInY();
 protected:
     std::vector<Connection*> outCon;
     Connection* inX = nullptr, * inY = nullptr;

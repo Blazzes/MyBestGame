@@ -2,7 +2,8 @@
 
 LogEAnd::LogEAnd(Position pos) : ILogElement(pos)
 {
-	SGame->AddUpdateFuction(this);
+	//SGame->AddUpdateFuction(this);
+	std::cout << "create: " << this << std::endl;
 }
 
 void LogEAnd::Update()

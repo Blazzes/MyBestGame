@@ -20,7 +20,8 @@ public:
 	void Render();
 	void StopGame();
 
-	void AddUpdateFuction(IGameObject* gameObj);
+	//void AddUpdateFuction(IGameObject* gameObj);
+	void deleteObject(IGameObject* obj);
 
 	bool isRunneble();
 
