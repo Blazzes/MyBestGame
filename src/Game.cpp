@@ -3,6 +3,7 @@
 #include "IGameObject.h"
 #include "SEvent.h"
 #include "LogEAnd.h"
+#include "LogEOr.h"
 #include <string>
 
 Game::Game(const char* title)
@@ -77,6 +78,7 @@ void Game::Update()
 	if (EventGame->isButPressed(SDLK_ESCAPE)) run_game = false;
 
 	if (EventGame->isButPressed(SDLK_1)) select_elem = 1;
+	if (EventGame->isButPressed(SDLK_2)) select_elem = 2;
 
 	if (EventGame->isMouseButPressed(SDL_BUTTON_LEFT))
 	{
@@ -86,7 +88,6 @@ void Game::Update()
 		}
 		else if (connected)
 		{
-
 		}
 		else
 		{
@@ -99,6 +100,8 @@ void Game::Update()
 				case 1:
 					vectorOfObjects.push_back(new LogEAnd(mousePos - Position(57, 100)));
 					break;
+				case 2:
+					vectorOfObjects.push_back(new LogEOr(mousePos - Position(57, 100)));
 				default:
 					break;
 				}
@@ -188,15 +191,7 @@ void Game::Update()
 		auto obj = getObjectFromPosition(mousePos);
 		if (obj != nullptr)
 		{
-			for (int i = 0; i < vectorOfObjects.size(); i++)
-			{
-				if (vectorOfObjects[i] == obj)
-				{
-					delete static_cast<ILogElement*>(obj);
-					vectorOfObjects.erase(vectorOfObjects.begin() + i);
-					break;
-				}
-			}
+			delete static_cast<ILogElement*>(obj);
 		}
 	}
 
@@ -211,6 +206,12 @@ void Game::Render()
 		(std::to_string(EventGame->getMousePosX()) + ":" + std::to_string(EventGame->getMousePosY())).c_str(), 
 		{ 0,0,0,255 }, 100, 100, 100, 20);
 	for (auto i : vectorOfObjects) i->Render();
+	if (connected)
+	{
+		SDL_SetRenderDrawColor(win->getRenderer(), 0, 0, 0, 200);
+		SDL_RenderDrawLine(win->getRenderer(), tmpObj->getPos().x, tmpObj->getPos().y,
+			EventGame->getMousePosX(), EventGame->getMousePosY());
+	}
 	SDL_RenderPresent(win->getRenderer());
 }
 

@@ -154,8 +154,20 @@
     <ClCompile Include="ILogElement.cpp" />
     <ClCompile Include="InitWindow.cpp" />
     <ClCompile Include="LogEAnd.cpp" />
+    <ClCompile Include="LogEOr.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SEvent.cpp" />
+    <ClCompile Include="src\BitMapTexture.cpp" />
+    <ClCompile Include="src\CommandEvent\ICommand.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameObjects\Connection.cpp" />
+    <ClCompile Include="src\GameObjects\IGameObject.cpp" />
+    <ClCompile Include="src\GameObjects\LogicalElements\ILogElement.cpp" />
+    <ClCompile Include="src\GameObjects\LogicalElements\LogEAnd.cpp" />
+    <ClCompile Include="src\GameObjects\LogicalElements\LogEOr.cpp" />
+    <ClCompile Include="src\InitWindow.cpp" />
+    <ClCompile Include="src\SEvent.cpp" />
+    <ClCompile Include="src\TtfText.cpp" />
     <ClCompile Include="TtfText.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,7 +179,19 @@
     <ClInclude Include="ILogElement.h" />
     <ClInclude Include="InitWindow.h" />
     <ClInclude Include="LogEAnd.h" />
+    <ClInclude Include="LogEOr.h" />
     <ClInclude Include="SEvent.h" />
+    <ClInclude Include="src\BitMapTexture.h" />
+    <ClInclude Include="src\CommandEvent\ICommand.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\GameObjects\Connection.h" />
+    <ClInclude Include="src\GameObjects\IGameObject.h" />
+    <ClInclude Include="src\GameObjects\LogicalElements\ILogElement.h" />
+    <ClInclude Include="src\GameObjects\LogicalElements\LogEAnd.h" />
+    <ClInclude Include="src\GameObjects\LogicalElements\LogEOr.h" />
+    <ClInclude Include="src\InitWindow.h" />
+    <ClInclude Include="src\SEvent.h" />
+    <ClInclude Include="src\TtfText.h" />
     <ClInclude Include="TtfText.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
