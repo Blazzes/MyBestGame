@@ -1,6 +1,4 @@
-#include "Game.h"
-#include "LogEAnd.h"
-#include "TtfText.h"
+#include "./src/Game.h"
 
 int main(int argv, char** argc)
 {

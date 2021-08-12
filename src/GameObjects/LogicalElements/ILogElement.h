@@ -1,7 +1,7 @@
 #pragma once
-#include "IGameObject.h"
-#include "BitMapTexture.h"
-#include "Connection.h"
+#include "../IGameObject.h"
+#include "../../BitMapTexture.h"
+#include "../Connection.h"
 class ILogElement :
     public IGameObject
 {

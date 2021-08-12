@@ -1,10 +1,10 @@
-#include "Game.h"
-#include "TtfText.h"
-#include "IGameObject.h"
-#include "SEvent.h"
-#include "LogEAnd.h"
-#include "LogEOr.h"
 #include <string>
+#include "Game.h"
+#include "SEvent.h"
+#include "TtfText.h"
+#include "./GameObjects/IGameObject.h"
+#include "./GameObjects/LogicalElements/LogEAnd.h"
+#include "./GameObjects/LogicalElements/LogEOr.h"
 
 Game::Game(const char* title)
 {

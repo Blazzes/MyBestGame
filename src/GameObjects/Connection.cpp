@@ -1,5 +1,5 @@
 #include "Connection.h"
-#include "ILogElement.h"
+#include "./LogicalElements/ILogElement.h"
 
 Connection::Connection(IGameObject* inElem, IGameObject* outElem, bool outSelect)
 	: pInElem(inElem), pOutElem(outElem), IGameObject(Position(0, 0)), select(outSelect)

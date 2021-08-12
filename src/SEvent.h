@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <map>
-#include "IGameObject.h"
+#include "./GameObjects/IGameObject.h"
 
 #define EventGame SEvent::instance()
 
