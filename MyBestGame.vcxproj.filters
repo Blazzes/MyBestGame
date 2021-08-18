@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{d9f008bb-fd29-4bc0-8a1d-08199ee32640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LogicalElements">
+      <UniqueIdentifier>{a2b557ce-5a59-4838-9314-b5d820b102ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -21,25 +27,10 @@
     <ClCompile Include="src\BitMapTexture.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\CommandEvent\ICommand.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObjects\Connection.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameObjects\IGameObject.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameObjects\LogicalElements\ILogElement.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameObjects\LogicalElements\LogEAnd.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameObjects\LogicalElements\LogEOr.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="src\InitWindow.cpp">
@@ -51,30 +42,39 @@
     <ClCompile Include="src\TtfText.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\CommandEvent\ICommand.cpp">
+      <Filter>Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\IGameObject.cpp">
+      <Filter>Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\LogicalElements\ILogElement.cpp">
+      <Filter>Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\LogicalElements\LogEAnd.cpp">
+      <Filter>LogicalElements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\LogicalElements\LogEOr.cpp">
+      <Filter>LogicalElements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\LogicalElements\Lamp.cpp">
+      <Filter>LogicalElements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\LogicalElements\LogEXor.cpp">
+      <Filter>LogicalElements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\LogicalElements\Switch.cpp">
+      <Filter>LogicalElements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BitMapTexture.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CommandEvent\ICommand.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\Game.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObjects\Connection.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameObjects\IGameObject.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameObjects\LogicalElements\ILogElement.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameObjects\LogicalElements\LogEAnd.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameObjects\LogicalElements\LogEOr.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\InitWindow.h">
@@ -85,6 +85,30 @@
     </ClInclude>
     <ClInclude Include="src\TtfText.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CommandEvent\ICommand.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\IGameObject.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\LogicalElements\ILogElement.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\LogicalElements\LogEAnd.h">
+      <Filter>LogicalElements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\LogicalElements\LogEOr.h">
+      <Filter>LogicalElements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\LogicalElements\Lamp.h">
+      <Filter>LogicalElements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\LogicalElements\LogEXor.h">
+      <Filter>LogicalElements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\LogicalElements\Switch.h">
+      <Filter>LogicalElements</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

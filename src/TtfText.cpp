@@ -1,9 +1,11 @@
 #include "TtfText.h"
+#include <filesystem>
 
 TtfText::TtfText()
 {
     TTF_Init();
-    fonts_map.insert({FONTS::Cosmic, TTF_OpenFont("./Fonts/comic.ttf", 64)});
+    if(std::filesystem::exists("./Fonts/comic.ttf"))
+        fonts_map.insert({FONTS::Cosmic, TTF_OpenFont("./Fonts/comic.ttf", 64)});
 }
 
 TtfText* TtfText::instance()

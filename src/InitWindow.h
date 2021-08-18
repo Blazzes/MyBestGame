@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <SDL2/SDL.h>
 struct WinPos
 {
 	WinPos(int _x, int _y, int _w, int _h)

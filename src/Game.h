@@ -20,7 +20,6 @@ public:
 	void Render();
 	void StopGame();
 
-	//void AddUpdateFuction(IGameObject* gameObj);
 	void deleteObject(IGameObject* obj);
 
 	bool isRunneble();
@@ -29,7 +28,6 @@ private:
 	Game(const char* title);
 	Game(const char* title, int x, int y, int w, int h);
 	~Game();
-	//std::list<IGameObject*> listOfObjects;
 	std::vector<IGameObject*> vectorOfObjects;
 	InitWindow* win;
 	bool run_game = true;
@@ -40,6 +38,7 @@ private:
 	bool connected = false;
 	bool isMoved = false;
 	bool outSelect = false;
+	bool sw = false;
 	IGameObject* tmpObj = nullptr;
 };
 

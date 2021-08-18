@@ -26,8 +26,11 @@
     <ClCompile Include="src\GameObjects\Connection.cpp" />
     <ClCompile Include="src\GameObjects\IGameObject.cpp" />
     <ClCompile Include="src\GameObjects\LogicalElements\ILogElement.cpp" />
+    <ClCompile Include="src\GameObjects\LogicalElements\Lamp.cpp" />
     <ClCompile Include="src\GameObjects\LogicalElements\LogEAnd.cpp" />
     <ClCompile Include="src\GameObjects\LogicalElements\LogEOr.cpp" />
+    <ClCompile Include="src\GameObjects\LogicalElements\LogEXor.cpp" />
+    <ClCompile Include="src\GameObjects\LogicalElements\Switch.cpp" />
     <ClCompile Include="src\InitWindow.cpp" />
     <ClCompile Include="src\SEvent.cpp" />
     <ClCompile Include="src\TtfText.cpp" />
@@ -39,8 +42,11 @@
     <ClInclude Include="src\GameObjects\Connection.h" />
     <ClInclude Include="src\GameObjects\IGameObject.h" />
     <ClInclude Include="src\GameObjects\LogicalElements\ILogElement.h" />
+    <ClInclude Include="src\GameObjects\LogicalElements\Lamp.h" />
     <ClInclude Include="src\GameObjects\LogicalElements\LogEAnd.h" />
     <ClInclude Include="src\GameObjects\LogicalElements\LogEOr.h" />
+    <ClInclude Include="src\GameObjects\LogicalElements\LogEXor.h" />
+    <ClInclude Include="src\GameObjects\LogicalElements\Switch.h" />
     <ClInclude Include="src\InitWindow.h" />
     <ClInclude Include="src\SEvent.h" />
     <ClInclude Include="src\TtfText.h" />
@@ -145,6 +151,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\mayer\source\repos\MyBestGame\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,6 +169,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\mayer\source\repos\MyBestGame\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

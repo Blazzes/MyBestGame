@@ -7,8 +7,7 @@ LogEOr::LogEOr(Position pos) : ILogElement(pos)
 void LogEOr::Update()
 {
 	bool out = false;
-	if (inX != nullptr) out = out || inX->signal;
-	if (inY != nullptr) out = out || inY->signal;
+	out = (inX ? inX->signal : 0) | (inY ? inY->signal : 0);
 	for (auto i : outCon) i->signal = out;
 }
 

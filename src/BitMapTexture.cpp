@@ -3,7 +3,6 @@
 BitMapTexture::BitMapTexture(std::string texturePath)
 {
 	tex = SDL_CreateTextureFromSurface(SGame->getRenderer(), IMG_Load(texturePath.c_str()));
-
 }
 
 SDL_Texture* BitMapTexture::getTexture()

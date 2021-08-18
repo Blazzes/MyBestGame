@@ -1,5 +1,7 @@
 #pragma once
 #include "../Game.h"
+#include "../BitMapTexture.h"
+//#include "Connection.h"
 #include <iostream>
 #include <vector>
 
@@ -27,5 +29,13 @@ public:
 	
 protected:
 	Position pos;
+
+	/*
+	не сковородку немного масла, тефтелькт, на половину феттелек воду
+	когда вода закипит, томатную пасту с водой, и долить
+	отварить отдельно макароны, отваренные макароны к тефтелькам 
+	посолить макароны
+	*/
+
 };
 
