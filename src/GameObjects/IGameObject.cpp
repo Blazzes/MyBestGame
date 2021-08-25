@@ -1,9 +1,6 @@
 #include "IGameObject.h"
 
-IGameObject::IGameObject(Position pos_) : pos(pos_)
-{
-	std::cout << pos.x << "::" << pos.y << std::endl;
-}
+IGameObject::IGameObject(Position pos_) : pos(pos_) {}
 
 Position IGameObject::getPos()
 {

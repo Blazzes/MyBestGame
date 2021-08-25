@@ -68,10 +68,10 @@ void ILogElement::delConnection(int connectionType)
 	{
 	case 1:
 	case 2: 
-		delete static_cast<Connection*>(inX);
+		if(inX) delete static_cast<Connection*>(inX);
 		break;
 	case 3:
-		delete static_cast<Connection*>(inY);
+		if(inY) delete static_cast<Connection*>(inY);
 		break;
 	case 4:
 		for (auto i : outCon)

@@ -93,10 +93,13 @@ void Game::Update()
 	if (EventGame->isButPressed(SDLK_8)) select_elem = 8;
 	if (EventGame->isButPressed(SDLK_9)) select_elem = 9;
 
-	if (EventGame->isButPressed(SDLK_w)) y += 10;
-	if (EventGame->isButPressed(SDLK_s)) y -= 10;
-	if (EventGame->isButPressed(SDLK_a)) x += 10;
-	if (EventGame->isButPressed(SDLK_d)) x -= 10;
+	if (EventGame->isButPressed(SDLK_w)) y -= 10;
+	if (EventGame->isButPressed(SDLK_s)) y += 10;
+	if (EventGame->isButPressed(SDLK_a)) x -= 10;
+	if (EventGame->isButPressed(SDLK_d)) x += 10;
+
+	if (EventGame->getMouseScrollUp()) { zoom -= 1; if (zoom < 1) zoom = 1; }
+	if (EventGame->getMouseScrollDown()) { zoom += 1; if (zoom > 10) zoom = 10;}
 	
 
 	if (EventGame->isMouseButPressed(SDL_BUTTON_LEFT))
@@ -286,4 +289,9 @@ bool Game::isRunneble()
 Position Game::getShiftPosition()
 {
 	return Position(x,y);
+}
+
+int Game::getZoom()
+{
+	return zoom;
 }

@@ -16,6 +16,7 @@ void SEvent::Update()
         if (e.type == SDL_KEYUP) { buttonBuffer.insert_or_assign(e.key.keysym.sym, false); }
         if (e.type == SDL_MOUSEBUTTONDOWN) { mouseBuffer.insert_or_assign(e.button.button, true); }
         if (e.type == SDL_MOUSEBUTTONUP) { mouseBuffer.insert_or_assign(e.button.button, false); }
+        if (e.type == SDL_MOUSEWHEEL) { mouseScrollY = e.wheel.y; }
     }
     SDL_GetMouseState(&MouseX, &MouseY);
 }
@@ -49,4 +50,14 @@ int SEvent::getMousePosY()
 Position SEvent::getPos()
 {
     return Position(MouseX, MouseY) + SGame->getShiftPosition();
+}
+
+bool SEvent::getMouseScrollUp()
+{
+    return mouseScrollY > 0 ? true : false;
+}
+
+bool SEvent::getMouseScrollDown()
+{
+    return mouseScrollY < 0 ? true : false;
 }

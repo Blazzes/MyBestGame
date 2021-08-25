@@ -25,6 +25,7 @@ public:
 	bool isRunneble();
 
 	Position getShiftPosition();
+	int getZoom();
 
 private:
 	Game(const char* title);
@@ -37,6 +38,7 @@ private:
 	int select_elem = 0;
 	int selectOut(IGameObject* chObj, Position selPos);
 	int x = 0, y = 0;
+	int zoom = 1;
 	//-----TEMPORAL VARS-----
 	bool connected = false;
 	bool isMoved = false;

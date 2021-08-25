@@ -37,6 +37,7 @@ void Connection::Render()
 		y_ = 200 - 40;
 	else
 		y_ = 40;
-	SDL_RenderDrawLine(SGame->getRenderer(), objAPos.x, objAPos.y + y_, objBPos.x + 110, objBPos.y + 100);
+	auto i = SGame->getShiftPosition();
+	SDL_RenderDrawLine(SGame->getRenderer(), objAPos.x - i.x, objAPos.y + y_ - i.y, objBPos.x + 110 - i.x, objBPos.y + 100 - i.y);
 	//std::cout << "CONNECTOR" << std::endl;
 }
