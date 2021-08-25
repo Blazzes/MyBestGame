@@ -2,6 +2,7 @@
 
 IGameObject::IGameObject(Position pos_) : pos(pos_)
 {
+	std::cout << pos.x << "::" << pos.y << std::endl;
 }
 
 Position IGameObject::getPos()

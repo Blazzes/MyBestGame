@@ -38,15 +38,15 @@ bool SEvent::isMouseButPressed(int button)
 
 int SEvent::getMousePosX()
 {
-    return MouseX;
+    return MouseX + SGame->getShiftPosition().x;
 }
 
 int SEvent::getMousePosY()
 {
-    return MouseY;
+    return MouseY + SGame->getShiftPosition().y;
 }
 
 Position SEvent::getPos()
 {
-    return Position(MouseX, MouseY);
+    return Position(MouseX, MouseY) + SGame->getShiftPosition();
 }

@@ -36,7 +36,6 @@ void ILogElement::addInY(Connection* con)
 
 void ILogElement::delOut(Connection* con)
 {
-	if (outCon.size() == 0) conTex &= ~BITMAP::OUTPUT;
 	for (size_t i = 0; i < outCon.size(); i++)
 	{
 		if (outCon[i] == con)
@@ -46,6 +45,7 @@ void ILogElement::delOut(Connection* con)
 			break;
 		}
 	}
+	if (outCon.size() == 0) conTex &= ~BITMAP::OUTPUT;
 }
 
 void ILogElement::delInX()
@@ -60,4 +60,27 @@ void ILogElement::delInY()
 	std::cout << "Delete Y: " << inY << std::endl;
 	inY = nullptr;
 	conTex &= ~BITMAP::INPTWO;
+}
+
+void ILogElement::delConnection(int connectionType)
+{
+	switch (connectionType)
+	{
+	case 1:
+	case 2: 
+		delete static_cast<Connection*>(inX);
+		break;
+	case 3:
+		delete static_cast<Connection*>(inY);
+		break;
+	case 4:
+		for (auto i : outCon)
+		{
+			delete static_cast<Connection*>(i);
+		}
+		break;
+	case 5:
+		delete this;
+		break;
+	}
 }

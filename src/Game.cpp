@@ -2,17 +2,22 @@
 #include "Game.h"
 #include "SEvent.h"
 #include "TtfText.h"
-#include "./GameObjects/IGameObject.h"
-#include "./GameObjects/LogicalElements/LogEAnd.h"
-#include "./GameObjects/LogicalElements/LogEOr.h"
-#include "./GameObjects/LogicalElements/Switch.h"
-#include "./GameObjects/LogicalElements/Lamp.h"
-#include "./GameObjects/LogicalElements/LogEXor.h"
+#include "GameObjects/IGameObject.h"
+#include "GameObjects/LogicalElements/Lamp.h"
+#include "GameObjects/LogicalElements/Switch.h"
+#include "GameObjects/LogicalElements/LogEAnd.h"
+#include "GameObjects/LogicalElements/LogENand.h"
+#include "GameObjects/LogicalElements/LogEOr.h"
+#include "GameObjects/LogicalElements/LogENor.h"
+#include "GameObjects/LogicalElements/LogEXor.h"
+#include "GameObjects/LogicalElements/LogEXnor.h"
+#include "GameObjects/LogicalElements/LogEInv.h"
+#include "GameObjects/LogicalElements/LogEBuf.h"
 
 Game::Game(const char* title)
 {
 	std::cout << "gameConstr" << std::endl;
-	win = new InitWindow(title, 0,0,0,0, SDL_WINDOW_FULLSCREEN || SDL_WINDOW_OPENGL || SDL_WINDOW_SHOWN, SDL_RENDERER_ACCELERATED);
+	win = new InitWindow(title, 0,0,0,0, SDL_WINDOW_OPENGL || SDL_WINDOW_SHOWN, SDL_RENDERER_ACCELERATED);
 }
 
 Game::Game(const char* title, int x, int y, int w, int h)
@@ -30,12 +35,7 @@ Game::~Game()
 IGameObject* Game::getObjectFromPosition(Position inPos)
 {
 	for (auto i : vectorOfObjects)
-	{
-		auto objPos = i->getPos();
-		if (objPos.x < inPos.x && objPos.x + 144 > inPos.x &&
-			objPos.y < inPos.y && objPos.y + 200 > inPos.y)
-			return i;
-	}
+		if (selectOut(i, inPos)) return i;
 	return nullptr;
 }
 
@@ -47,8 +47,8 @@ int Game::selectOut(IGameObject* chObj, Position selPos)
 	if (mX > oX && mX < oX + 114 && mY > oY && mY < oY + 200)
 	{
 		if (mX > oX && mX < oX + 10 && mY > oY + 30 && mY < oY + 50) return 1;
-		if (mX > oX && mX < oX + 10 && mY > oY + 150 && mY < oY + 170) return 2;
-		if (mX > oX && mX < oX + 10 && mY > oY + 90 && mY < oY + 110) return 3;
+		if (mX > oX && mX < oX + 10 && mY > oY + 90 && mY < oY + 110) return 2;
+		if (mX > oX && mX < oX + 10 && mY > oY + 150 && mY < oY + 170) return 3;
 		if (mX > oX + 104 && mX < oX + 114 && mY > oY + 90 && mY < oY + 110) return 4;
 		return 5;
 	}
@@ -87,7 +87,16 @@ void Game::Update()
 	if (EventGame->isButPressed(SDLK_2)) select_elem = 2;
 	if (EventGame->isButPressed(SDLK_3)) select_elem = 3;
 	if (EventGame->isButPressed(SDLK_4)) select_elem = 4;
+	if (EventGame->isButPressed(SDLK_5)) select_elem = 5;
+	if (EventGame->isButPressed(SDLK_6)) select_elem = 6;
+	if (EventGame->isButPressed(SDLK_7)) select_elem = 7;
+	if (EventGame->isButPressed(SDLK_8)) select_elem = 8;
+	if (EventGame->isButPressed(SDLK_9)) select_elem = 9;
 
+	if (EventGame->isButPressed(SDLK_w)) y += 10;
+	if (EventGame->isButPressed(SDLK_s)) y -= 10;
+	if (EventGame->isButPressed(SDLK_a)) x += 10;
+	if (EventGame->isButPressed(SDLK_d)) x -= 10;
 	
 
 	if (EventGame->isMouseButPressed(SDL_BUTTON_LEFT))
@@ -102,24 +111,39 @@ void Game::Update()
 		else
 		{
 			auto obj = getObjectFromPosition(mousePos);
-			if (obj == nullptr)
+			if (!obj)
 			{
 				switch (select_elem)
 				{
 				case 0:
-					vectorOfObjects.push_back(new Switch(mousePos - Position(57, 100)));
-					break;
-				case 1:
-					vectorOfObjects.push_back(new LogEAnd(mousePos - Position(57, 100)));
-					break;
-				case 2:
-					vectorOfObjects.push_back(new LogEOr(mousePos - Position(57, 100)));
-					break;
-				case 3:
 					vectorOfObjects.push_back(new Lamp(mousePos - Position(57, 100)));
 					break;
+				case 1:
+					vectorOfObjects.push_back(new Switch(mousePos - Position(57, 100)));
+					break;
+				case 2:
+					vectorOfObjects.push_back(new LogEAnd(mousePos - Position(57, 100)));
+					break;
+				case 3:
+					vectorOfObjects.push_back(new LogENand(mousePos - Position(57, 100)));
+					break;
 				case 4:
+					vectorOfObjects.push_back(new LogEOr(mousePos - Position(57, 100)));
+					break;
+				case 5:
+					vectorOfObjects.push_back(new LogENor(mousePos - Position(57, 100)));
+					break;
+				case 6:
 					vectorOfObjects.push_back(new LogEXor(mousePos - Position(57, 100)));
+					break;
+				case 7:
+					vectorOfObjects.push_back(new LogEXnor(mousePos - Position(57, 100)));
+					break;
+				case 8:
+					vectorOfObjects.push_back(new LogEInv(mousePos - Position(57, 100)));
+					break;
+				case 9:
+					vectorOfObjects.push_back(new LogEBuf(mousePos - Position(57, 100)));
 					break;
 				default:
 					break;
@@ -136,11 +160,11 @@ void Game::Update()
 					outSelect = 0;
 					connected = true;
 					break;
-				case 2:
+				case 3:
 					outSelect = 1;
 					connected = true;
 					break;
-				case 3:
+				case 2:
 				case 4:
 					connected = true;
 					break;
@@ -170,17 +194,17 @@ void Game::Update()
 		}
 		else if (connected)
 		{
-			if (obj != nullptr)
+			if (obj)
 			{
 				Connection* con;
 				switch (selectOut(obj, mousePos))
 				{
-				case 3:
+				case 2:
 				case 1:
 					con = new Connection(obj, tmpObj, 0);
 					vectorOfObjects.push_back(con);
 					break;
-				case 2:
+				case 3:
 					con = new Connection(obj, tmpObj, 1);
 					vectorOfObjects.push_back(con);
 					break;
@@ -205,19 +229,16 @@ void Game::Update()
 			}
 		}
 	}
+
+
 	if (EventGame->isMouseButPressed(SDL_BUTTON_RIGHT))
 	{
 		auto obj = getObjectFromPosition(mousePos);
-		if (obj != nullptr)
+		if (obj)
 		{
-			delete static_cast<ILogElement*>(obj);
+			static_cast<ILogElement*>(obj)->delConnection(selectOut(obj, mousePos));
 		}
 	}
-
-	// 6 - 40 - рубашки доп полоскание
-	// 5/3 - 50-60 - трусы носки
-	// 2 - 60-70 - пастель, платочки, полотенца (не сильно то 3)
-	// меньше половины парошка(1/3) от вещей 
 	
 }
 
@@ -260,4 +281,9 @@ void Game::deleteObject(IGameObject* obj)
 bool Game::isRunneble()
 {
 	return run_game;
+}
+
+Position Game::getShiftPosition()
+{
+	return Position(x,y);
 }
