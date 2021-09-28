@@ -1,5 +1,9 @@
 #include "Connection.h"
 #include "./LogicalElements/ILogElement.h"
+#include "LogicalElements/Lamp.h"
+#include "LogicalElements/LogEBuf.h"
+#include "LogicalElements/LogEInv.h"
+#include "LogicalElements/Switch.h"
 
 Connection::Connection(IGameObject* inElem, IGameObject* outElem, bool outSelect)
 	: pInElem(inElem), pOutElem(outElem), IGameObject(Position(0, 0)), select(outSelect)
@@ -37,6 +41,9 @@ void Connection::Render()
 		y_ = 200 - 40;
 	else
 		y_ = 40;
+	if (dynamic_cast<Lamp*>(pInElem)) y_ = 100;
+	if (dynamic_cast<LogEBuf*>(pInElem)) y_ = 100;
+	if (dynamic_cast<LogEInv*>(pInElem)) y_ = 100;
 	auto i = SGame->getShiftPosition();
 	SDL_RenderDrawLine(SGame->getRenderer(), objAPos.x - i.x, objAPos.y + y_ - i.y, objBPos.x + 110 - i.x, objBPos.y + 100 - i.y);
 	//std::cout << "CONNECTOR" << std::endl;

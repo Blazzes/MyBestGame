@@ -7,8 +7,8 @@ ILogElement::ILogElement(Position pos) : IGameObject(pos)
 ILogElement::~ILogElement()
 {
 	std::cout << "delete Element: " << this << std::endl;
-	delete static_cast<Connection*>(inX);
-	delete static_cast<Connection*>(inY);
+	if(inX) delete static_cast<Connection*>(inX);
+	if(inY) delete static_cast<Connection*>(inY);
 	for (auto i : outCon)
 	{
 		delete static_cast<Connection*>(i);
@@ -24,12 +24,14 @@ void ILogElement::addOut(Connection* con)
 
 void ILogElement::addInX(Connection* con)
 {
+	if (inX) delete inX;
 	inX = con;
 	conTex |= BITMAP::INPONE;
 }
 
 void ILogElement::addInY(Connection* con)
 {
+	if (inY) delete inY;
 	inY = con;
 	conTex |= BITMAP::INPTWO;
 }

@@ -6,6 +6,13 @@ InitWindow::InitWindow(const char* title, int x, int y, int w, int h, Uint32 Win
     win = SDL_CreateWindow(title, x, y, w, h, Win_flags);
     ren = SDL_CreateRenderer(win, -1, Ren_flags);
     std::cout << "win Constructor" << std::endl;
+    if (Win_flags & SDL_WINDOW_FULLSCREEN)
+    {
+        SDL_DisplayMode mode;
+        SDL_GetWindowDisplayMode(win, &mode);
+        myWinPosition.w = mode.w;
+        myWinPosition.h = mode.h;
+    }
 }
 
 WinPos InitWindow::getWinPos() const

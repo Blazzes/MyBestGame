@@ -160,16 +160,23 @@ void Game::Update()
 				switch (selectOut(obj, mousePos))
 				{
 				case 1:
+					if (dynamic_cast<Switch*>(obj)) break;
+					if (dynamic_cast<LogEBuf*>(obj)) break;
+					if (dynamic_cast<LogEInv*>(obj)) break;
 					outSelect = 0;
-					connected = true;
+					connected = 1;
 					break;
 				case 3:
+					if (dynamic_cast<Switch*>(obj)) break;
+					if (dynamic_cast<LogEBuf*>(obj)) break;
+					if (dynamic_cast<LogEInv*>(obj)) break;
 					outSelect = 1;
-					connected = true;
+					connected = 2;
 					break;
 				case 2:
 				case 4:
-					connected = true;
+					if (dynamic_cast<Lamp*>(obj)) break;
+					connected = 3;
 					break;
 				case 5:
 					if (dynamic_cast<Switch*>(obj))
@@ -202,16 +209,23 @@ void Game::Update()
 				Connection* con;
 				switch (selectOut(obj, mousePos))
 				{
-				case 2:
 				case 1:
+					if (dynamic_cast<Switch*>(obj)) break;
+					if (dynamic_cast<LogEBuf*>(obj)) break;
+					if (dynamic_cast<LogEInv*>(obj)) break;
+				case 2:
 					con = new Connection(obj, tmpObj, 0);
 					vectorOfObjects.push_back(con);
 					break;
 				case 3:
+					if (dynamic_cast<Switch*>(obj)) break;
+					if (dynamic_cast<LogEBuf*>(obj)) break;
+					if (dynamic_cast<LogEInv*>(obj)) break;
 					con = new Connection(obj, tmpObj, 1);
 					vectorOfObjects.push_back(con);
 					break;
 				case 4:
+					if (dynamic_cast<Lamp*>(obj)) break;
 					con = new Connection(tmpObj, obj, outSelect);
 					vectorOfObjects.push_back(con);
 					break;
@@ -249,16 +263,34 @@ void Game::Render()
 {
 	SDL_SetRenderDrawColor(win->getRenderer(), 199,208,204,255);
 	SDL_RenderClear(win->getRenderer());
-	TEXT->PrintText(FONTS::Cosmic,
-		(std::to_string(EventGame->getMousePosX()) + ":" + std::to_string(EventGame->getMousePosY())).c_str(), 
-		{ 0,0,0,255 }, 100, 100, 100, 20);
+	
+	std::string mouse_pos = std::to_string(EventGame->getMousePosX()) + ":" + std::to_string(EventGame->getMousePosY());
+	TEXT->PrintText(FONTS::Cosmic, mouse_pos.c_str(),
+		{ 0,0,0,180 }, win->getWinPos().w - 150, 30, mouse_pos.size() * 10, 20);
+
 	for (auto i : vectorOfObjects) i->Render();
+
 	if (connected)
 	{
+		int y_ = 0;
+		if (connected == 1) y_ = 40;
+		if (connected == 2) y_ = 160;
+		if (connected == 3) y_ = 100;
 		SDL_SetRenderDrawColor(win->getRenderer(), 0, 0, 0, 200);
-		SDL_RenderDrawLine(win->getRenderer(), tmpObj->getPos().x, tmpObj->getPos().y,
+		SDL_RenderDrawLine(win->getRenderer(), 
+			tmpObj->getPos().x + (connected == 3 ? 110:0) - x, tmpObj->getPos().y + y_ - y,
 			EventGame->getMousePosX(), EventGame->getMousePosY());
 	}
+
+	for (int i = 0; i < quest.size(); i++)
+	{
+		TEXT->PrintText(FONTS::Cosmic,
+			quest.at(i).c_str(),
+			{ (Uint8)(select_elem == i ? 255 : 0),0,0,180 }, win->getWinPos().w - 150, 50 + i * 20, quest.at(i).size() * 10, 20);
+	}
+
+	TEXT->PrintText(FONTS::Cosmic, "WASD - move", { 0,0,0,180 }, win->getWinPos().w - 150, 50 + quest.size() * 20, 120, 20);
+
 	SDL_RenderPresent(win->getRenderer());
 }
 

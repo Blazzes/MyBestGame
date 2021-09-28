@@ -39,19 +39,21 @@ private:
 	int selectOut(IGameObject* chObj, Position selPos);
 	int x = 0, y = 0;
 	int zoom = 1;
+	std::vector<std::string> quest = {
+		"0 - LAMP",
+		"1 - SWITCH",
+		"2 - AND",
+		"3 - NAND",
+		"4 - OR",
+		"5 - NOR",
+		"6 - XOR",
+		"7 - XNOR",
+		"8 - INVERT",
+		"9 - BUFFER"};
 	//-----TEMPORAL VARS-----
-	bool connected = false;
+	int connected = 0;
 	bool isMoved = false;
 	bool outSelect = false;
 	bool sw = false;
 	IGameObject* tmpObj = nullptr;
 };
-
-// воду в кастрюлю, до кипения
-// картошку до кипения(немного варить)
-// окунаю тефтельки
-// ждать закипания и всплытия
-// домашние макарошки(не более 5 мин)
-// if!ported
-
-// вывести длины строк, их сумму, и равны или нет 
